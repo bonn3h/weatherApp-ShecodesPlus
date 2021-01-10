@@ -1,0 +1,111 @@
+.container {
+  max-width: 360px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: rgba(231, 231, 222, 0.5);
+  border-radius: 10px;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.card {
+  border: none;
+  text-align: center;
+  background-color: transparent;
+}
+
+.card-body {
+  padding: 5px;
+  color: #6c757d;
+}
+
+.search-city {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  color: #6c757d;
+}
+.fa-search {
+  color: #6c757d;
+}
+
+.form-control {
+  background-color: transparent;
+  border-color: #6c757d;
+}
+
+::placeholder {
+  color: #6c757d;
+}
+
+.col-10 {
+  padding-right: 0px;
+}
+
+.current-city {
+  font-size: 25px;
+  padding-bottom: 5px;
+  color: #6c757d;
+}
+
+.current-day-time {
+  padding-bottom: 10px;
+  color: #6c757d;
+}
+
+h1 {
+  font-size: 60px;
+  margin-bottom: 0px !important;
+}
+
+a {
+  color: #6c757d;
+}
+
+a:hover {
+  color: #000000;
+  text-decoration: none;
+}
+
+a.active {
+  font-weight: bold;
+  text-decoration: none;
+  color: #6c757d;
+}
+.temperature-type {
+  max-width: 20px;
+}
+
+.weather-conditions p {
+  text-align: left;
+  padding: 5px;
+}
+
+.weather-today {
+  padding-bottom: 20px;
+}
+
+.mainImage {
+  padding-bottom: 20px;
+  min-height: 200px;
+  max-height: 250px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+.forecast {
+  max-width: 120px;
+  padding-bottom: 20px;
+}
+
+.forecast p {
+  font-size: 13px;
+}
+
+p {
+  margin-bottom: 0px !important;
+}
+
+.forecast .fas {
+  padding-bottom: 10px;
+}

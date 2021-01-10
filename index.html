@@ -1,0 +1,121 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wireframe for Weather app</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <script src="https://kit.fontawesome.com/9efe134783.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="src/style.css" />
+  <script defer src="index.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Seacrh Bar and search icon -->
+    <form id="search-form">
+      <div class="row search-city">
+        <div class="col-10">
+          <input type="text" class="form-control" placeholder="Search your city" id="city-searched" />
+        </div>
+
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+
+    <!--Current City, County, Day and Time-->
+    <div class="row justify-content-center current-city">
+      <p id="display-city"><strong>BRISBANE,</strong> AUSTRALIA</p>
+    </div>
+    <div class="row current-day-time justify-content-center">
+      <p id="current-time">Sunday, 12:15 PM</p>
+    </div>
+
+    <!--Current Temperature, High and Low Temp-->
+    <div class="row weather-today justify-content-center">
+      <div class="card w-40 temperature-today">
+        <div class="card-body">
+          <h1 class="card-title temp">25°</h1>
+          <p><span class="temp">27°</span> / <span class="temp">21°</span></p>
+        </div>
+      </div>
+      <div class="card w-20 temprature-type">
+        <div class="card-body">
+          <p class="card-title"><a href="#" id="celcius-link" class="active"> C </a>|
+            <a href="#" id="fahrenheit-link"> F
+              <a>
+          </p>
+        </div>
+      </div>
+
+      <!--Weather conditions, Wind, Precipiattion or Chance of rain-->
+      <div class="card w-40 weather-conditions">
+        <div class="card-body">
+          <p><i class="fas fa-cloud-sun"></i> Party Cloudy</p>
+          <p><i class="fas fa-wind"></i> 12 kmph</p>
+          <p><i class="fas fa-umbrella"></i> 81%</p>
+        </div>
+      </div>
+    </div>
+
+    <!--Quote of the day-->
+    <div class="mainImage">
+      <img src="src/media/relaxing.svg" alt="weatherImgae">
+    </div>
+
+    <!-- Future Forecast-->
+    <div class="row justify-content-center">
+      <div class="card forecast">
+        <div class="card-body">
+          <h5 class="card-title">Mon</h5>
+          <i class="fas fa-cloud-sun-rain"></i>
+          <p class="card-text"><span class="temp">26°</span>/<span class="temp"> 22°</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="card forecast">
+        <div class="card-body">
+          <h5 class="card-title">Tue</h5>
+          <i class="fas fa-cloud-showers-heavy"></i>
+          <p class="card-text"><span class="temp">26°</span>/<span class="temp"> 22°</span></p>
+        </div>
+      </div>
+
+      <div class="card forecast">
+        <div class="card-body">
+          <h5 class="card-title">Wed</h5>
+          <i class="fas fa-cloud-sun"></i>
+          <p class="card-text"><span class="temp">26°</span>/<span class="temp"> 22°</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="card forecast">
+        <div class="card-body">
+          <h5 class="card-title">Thu</h5>
+          <i class="fas fa-sun"></i>
+          <p class="card-text"><span class="temp">26°</span>/<span class="temp"> 22°</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="card forecast">
+        <div class="card-body">
+          <h5 class="card-title">Fri</h5>
+          <i class="fas fa-sun"></i>
+          <p class="card-text"><span class="temp">26°</span>/<span class="temp"> 22°</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
