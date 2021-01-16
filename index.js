@@ -31,24 +31,54 @@ function enterCity(event) {
   let citySearched = document.getElementById("city-searched").value;
   let apiKey = "d501295ae4ed80273e766f727b7cd606";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearched}&appid=${apiKey}&&units=metric`;
-  axios.get(`${apiUrl}`).then(showTemperature);
-  axios.get(`${apiUrl}`).then(showCity);
+  let getAPI = axios.get(`${apiUrl}`);
+  getAPI.then(showTemperature);
+  getAPI.then(showCity);
+  getAPI.then(showHighLowTemp);
+  getAPI.then(weatherDescription)
+  getAPI.then(windSpeed);
+  getAPI.then(precipitation);
 }
+
 let search = document.querySelector("#search-form");
 search.addEventListener("submit", enterCity)
 
-// Change temperature overview
+// Change current temperature main
 function showTemperature(response) {
   let temp = document.querySelector("h1");
   temp.innerHTML = `${Math.round(response.data.main.temp)}°`;
 }
-
+// Show Current city and country
 function showCity(response) {
   let displayCity = document.getElementById("display-city");
   displayCity.innerHTML = `${(response.data.name)}, ${(response.data.sys.country)}`;
 }
+// Show Current day high and low temperatures
+function showHighLowTemp(response) {
+  let highTemp = document.getElementById("current-day-high");
+  let lowTemp = document.getElementById("current-day-low");
+  highTemp.innerHTML = `${Math.round(response.data.main.temp_max)}°`;
+  lowTemp.innerHTML =`${Math.round(response.data.main.temp_min)}°`;
+}
 
-// //Bonus challenge - change temp based on slection of units
+// Change current weather descriptiin
+function weatherDescription(response) {
+  let weatherCondition = document.getElementById("weather-description");
+  let weatherDescribed = `${(response.data.weather[0].description)}`;
+  weatherCondition.innerHTML = weatherDescribed.toUpperCase();
+}
+// Change current wind speed
+function windSpeed(response) {
+  let wind = document.getElementById("wind-speed");
+  wind.innerHTML = `${(response.data.wind.speed)} M/S`;
+}
+// Change current precipitation
+function precipitation(response) {
+  let precip = document.getElementById("precipitation");
+  precip.innerHTML = `${(response.data.main.humidity)}`;
+}
+
+// Bonus challenge - change temp based on slection of units
 
 let fahrenheit = document.getElementById("fahrenheit-link");
 fahrenheit.addEventListener("click", changeToFahrenheit)

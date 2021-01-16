@@ -24,7 +24,7 @@
     <div class="row search-city">
       <div class="col-10 search-box">
         <form id="search-form">
-          <input type="text" class="form-control" placeholder="Search you city" id="city-searched">
+          <input type="text" class="form-control" placeholder="Search you city" id="city-searched" autofill="Off">
         </form>
       </div>
       <div class="search-buttons">
@@ -35,7 +35,7 @@
 
     <!--Current City, County, Day and Time-->
     <div class="row justify-content-center current-city">
-      <p id="display-city"><strong>BRISBANE,</strong> AUSTRALIA</p>
+      <p id="display-city"><strong>CITY,</strong> COUNTRY</p>
     </div>
     <div class="row current-day-time justify-content-center">
       <p id="current-time">Sunday, 12:15 PM</p>
@@ -46,7 +46,8 @@
       <div class="card w-40 temperature-today">
         <div class="card-body">
           <h1 class="card-title temp">25°</h1>
-          <p><span class="temp">27°</span> / <span class="temp">21°</span></p>
+          <p><span class="temp" id="current-day-high">27°</span> / <span class="temp" id="current-day-low">21°</span>
+          </p>
         </div>
       </div>
       <div class="card w-20 temprature-type">
@@ -60,9 +61,9 @@
       <!--Weather conditions, Wind, Precipiattion or Chance of rain-->
       <div class="card w-40 weather-conditions">
         <div class="card-body">
-          <p><i class="fas fa-cloud-sun weather-description"></i> Party Cloudy</p>
-          <p><i class="fas fa-wind"></i> 12 kmph</p>
-          <p><i class="fas fa-umbrella"></i> 81%</p>
+          <p><i class="fas fa-cloud-sun"></i> <span id="weather-description">Weather</span></p>
+          <p><i class="fas fa-wind"></i> <span id="wind-speed">00 m/s</span></p>
+          <p><i class="fas fa-umbrella"></i> <span id="precipitation"> 00 </span>%</p>
         </div>
       </div>
     </div>
