@@ -29,19 +29,23 @@ currentTime.innerHTML = formatDate();
 function enterCity(event) {
   event.preventDefault();
   let citySearched = document.getElementById("city-searched").value;
-  let displayCity = document.getElementById("display-city");
-  displayCity.innerHTML = citySearched;
   let apiKey = "d501295ae4ed80273e766f727b7cd606";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearched}&appid=${apiKey}&&units=metric`;
   axios.get(`${apiUrl}`).then(showTemperature);
+  axios.get(`${apiUrl}`).then(showCity);
 }
 let search = document.querySelector("#search-form");
 search.addEventListener("submit", enterCity)
 
-// Change temperature on display
+// Change temperature overview
 function showTemperature(response) {
   let temp = document.querySelector("h1");
   temp.innerHTML = `${Math.round(response.data.main.temp)}°`;
+}
+
+function showCity(response) {
+  let displayCity = document.getElementById("display-city");
+  displayCity.innerHTML = `${(response.data.name)}, ${(response.data.sys.country)}`;
 }
 
 // //Bonus challenge - change temp based on slection of units

@@ -1,5 +1,5 @@
 .container {
-  max-width: 360px;
+  max-width: 375px;
   background-size: contain;
   background-repeat: no-repeat;
   background-color: rgba(231, 231, 222, 0.5);
@@ -19,12 +19,36 @@
 }
 
 .search-city {
-  margin-top: 50px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding-top: 20px;
+  padding-left: 10px;
   color: #6c757d;
 }
-.fa-search {
+.search-box {
+  padding-left: 10px;
+  padding-right: 0px;
+  max-width: 280px;
+}
+.btn {
+  min-width: 15px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+.search-icon {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.current-location {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.fa-search .fa-location-arrow {
   color: #6c757d;
 }
 
@@ -35,10 +59,6 @@
 
 ::placeholder {
   color: #6c757d;
-}
-
-.col-10 {
-  padding-right: 0px;
 }
 
 .current-city {
@@ -109,8 +129,8 @@ p {
 .forecast .fas {
   padding-bottom: 10px;
 }
-.footer {
-  display: block;
+.footnote {
   text-align: center;
-  margin: 10px;
+  padding-bottom: 5px;
+  font-size: 12px;
 }
