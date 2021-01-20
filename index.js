@@ -31,13 +31,14 @@ function enterCity(event) {
   let citySearched = document.getElementById("city-searched").value;
   let apiKey = "d501295ae4ed80273e766f727b7cd606";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearched}&appid=${apiKey}&&units=metric`;
-  let getAPI = axios.get(`${apiUrl}`);
+  let getAPI = axios.get(apiUrl);
   getAPI.then(showTemperature);
   getAPI.then(showCity);
   getAPI.then(showHighLowTemp);
   getAPI.then(weatherDescription)
   getAPI.then(windSpeed);
   getAPI.then(precipitation);
+  getAPI.then(getTime);
 }
 
 let search = document.querySelector("#search-form");
@@ -78,6 +79,22 @@ function precipitation(response) {
   precip.innerHTML = `${(response.data.main.humidity)}`;
 }
 
+// Get time for city searched and display correctly
+function getTime(response) {
+  let timezone = response.data.timezone * 1000;
+  let time = Date.now();
+  let dateObject = new Date(time + timezone);
+  let weekday = dateObject.toLocaleString("en-US", { weekday: "long", timeZone: `UTC` }) // Monday
+  let hours = dateObject.toLocaleString("en-GB", { hour: "numeric", timeZone: `UTC` }) // 10 AM
+  let ampm = (hours >= 12) ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  let minutes = dateObject.toLocaleString("en-US", { minute: "numeric", timeZone: `UTC` }) // 30
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  let timeDisplayed = document.getElementById("current-time");
+  timeDisplayed.innerHTML = `${weekday}, ${hours}:${minutes} ${ampm}`;
+}
+  
 // Bonus challenge - change temp based on slection of units
 
 let fahrenheit = document.getElementById("fahrenheit-link");
