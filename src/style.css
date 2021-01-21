@@ -77,6 +77,10 @@ h1 {
   margin-bottom: 0px !important;
 }
 
+#weather-description {
+  text-transform: capitalize;
+}
+
 a {
   color: #6c757d;
 }
@@ -114,10 +118,15 @@ a.active {
   flex-direction: column;
 }
 .forecast {
-  max-width: 120px;
+  max-width: 100px;
   padding-bottom: 20px;
 }
-
+.weather-forecast {
+  display: flex;
+  justify-content: space-evenly;
+  padding-left: 30px;
+  padding-right: 30px;
+}
 .forecast p {
   font-size: 13px;
 }

@@ -66,8 +66,8 @@ function showHighLowTemp(response) {
 // Change current weather descriptiin
 function weatherDescription(response) {
   let weatherCondition = document.getElementById("weather-description");
-  let weatherDescribed = `${(response.data.weather[0].description)}`;
-  weatherCondition.innerHTML = weatherDescribed.toUpperCase();
+  weatherCondition.innerHTML = `${(response.data.weather[0].description)}`;
+   
 }
 // Change current wind speed
 function windSpeed(response) {
@@ -101,10 +101,40 @@ function getTime(response) {
 function getLatLon(response) {
     let lat = response.data.coord.lat;
     let lon = response.data.coord.lon;
+    let apiKey = "d501295ae4ed80273e766f727b7cd606";
     let apiForecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}&&units=metric`;
     let getForecastAPI = axios.get(apiForecastUrl);
-    getForecastAPI.then(getForecast);
+    getForecastAPI.then(showForecast);
 }
+
+//Function to display forecast for next 5 days, renders forecast using API and for loop
+
+ function showForecast(response) {
+    let forecastElement = document.querySelector(".weather-forecast");
+    forecastElement.innerHTML = null;
+    let forecast = null;
+
+    for (let index = 1; index < 6; index++) {
+      forecast = response.data.daily[index];
+
+      let timez = forecast.dt * 1000;
+      let timeNow = Date.now();
+      let dateObjecttoday = new Date(timeNow + timez);
+      let weekdayFormat = dateObjecttoday.toLocaleString("en-US", { weekday: "short", timeZone: `UTC` });
+      forecastElement.innerHTML += `
+
+        <div class="card forecast">
+          <div class="card-body">
+            <h5 class="card-title">${weekdayFormat}</h5>
+            <i class="fas fa-cloud-sun-rain"></i>
+            <p class="card-text"><span class="temp">${Math.round(forecast.temp.max)}° </span>/<span class="temp"> ${Math.round(forecast.temp.min)}°</span>
+            </p>
+          </div>
+        </div>
+        `;
+    }
+  }
+
   
 // Bonus challenge - change temp based on slection of units
 
