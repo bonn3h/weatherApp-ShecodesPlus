@@ -39,6 +39,7 @@ function enterCity(event) {
   getAPI.then(windSpeed);
   getAPI.then(precipitation);
   getAPI.then(getTime);
+  getAPI.then(getLatLon)
 }
 
 let search = document.querySelector("#search-form");
@@ -93,6 +94,16 @@ function getTime(response) {
   minutes = minutes < 10 ? '0' + minutes : minutes;
   let timeDisplayed = document.getElementById("current-time");
   timeDisplayed.innerHTML = `${weekday}, ${hours}:${minutes} ${ampm}`;
+}
+
+
+// Get Lat and Longitude for Forecast API
+function getLatLon(response) {
+    let lat = response.data.coord.lat;
+    let lon = response.data.coord.lon;
+    let apiForecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}&&units=metric`;
+    let getForecastAPI = axios.get(apiForecastUrl);
+    getForecastAPI.then(getForecast);
 }
   
 // Bonus challenge - change temp based on slection of units
