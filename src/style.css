@@ -2,7 +2,8 @@
   max-width: 375px;
   background-size: contain;
   background-repeat: no-repeat;
-  background-color: rgba(231, 231, 222, 0.5);
+  background-color: rgba(232, 236, 241, 0.5);
+  /* background-color: rgba(231, 231, 222, 0.5); */
   border-radius: 10px;
   font-family: "Source Sans Pro", sans-serif;
 }
@@ -15,7 +16,7 @@
 
 .card-body {
   padding: 5px;
-  color: #6c757d;
+  color: #4e4f50;
 }
 
 .search-city {
@@ -64,7 +65,7 @@
 .current-city {
   font-size: 25px;
   padding-bottom: 5px;
-  color: #6c757d;
+  color: #696c6d;
 }
 
 .current-day-time {

@@ -1,30 +1,4 @@
-//  Show current Day and Time
-// function formatDate() {
-//   let days = [
-//     "Sunday",
-//     "Monday",
-//     "Tuesday",
-//     "Wednesday",
-//     "Thursday",
-//     "Friday",
-//     "Saturday"
-//   ];
-//   let day = days[new Date().getDay()];
-//   let hours = new Date().getHours();
-//   let minutes = new Date().getMinutes();
-//   if (minutes < 10) {
-//     minutes = "0" + minutes;
-//     }
-//   let ampm = (hours >= 12) ? "PM" : "AM";
 
-//   let today = `${day}, ${hours}:${minutes} ${ampm}`;
-//   return today;
-// }
-
-// let currentTime = document.getElementById("current-time");
-// currentTime.innerHTML = formatDate();
-
-// Search city- show city
 
 function enterCity(event) {
   event.preventDefault();
@@ -105,14 +79,14 @@ function showWeatherImage(response) {
      '01n': 'src/media/moonlight_5ksn.svg',
      '02d': 'src/media/undraw_Weather_app_re_kcb1.svg',
      '02n': 'src/media/Dream_Monochromatic.svg',
-     '03d': 'src/media/undraw_i_can_fly_7egl.svg',
-     '03n': 'src/media/undraw_i_can_fly_7egl.svg',
-     '04d': 'src/media/undraw_i_can_fly_7egl.svg',
-     '04n': 'src/media/undraw_i_can_fly_7egl.svg',
+     '03d': 'src/media/i_can_fly_7egl.svg',
+     '03n': 'src/media/i_can_fly_7egl.svg',
+     '04d': 'src/media/i_can_fly_7egl.svg',
+     '04n': 'src/media/i_can_fly_7egl.svg',
      '09d': 'src/media/raingrey.svg',
      '09n': 'src/media/Rain_Monochromatic.svg',
-     '10d': 'src/media/undraw_after_the_rain_58op.svg',
-     '10n': 'src/media/undraw_after_the_rain_58op.svg',
+     '10d': 'src/media/after_the_rain_58op.svg',
+     '10n': 'src/media/after_the_rain_58op.svg',
      '11d': 'src/media/before_dawn_bqrj day.svg',
      '11n': 'src/media/before_dawn_bqrj night.svg',
      '13d': 'src/media/snow_games_ohkc.svg',
