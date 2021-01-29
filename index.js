@@ -1,28 +1,28 @@
 //  Show current Day and Time
-function formatDate() {
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
-  let day = days[new Date().getDay()];
-  let hours = new Date().getHours();
-  let minutes = new Date().getMinutes();
-  if (minutes < 10) {
-    minutes = "0" + minutes;
-    }
-  let ampm = (hours >= 12) ? "PM" : "AM";
+// function formatDate() {
+//   let days = [
+//     "Sunday",
+//     "Monday",
+//     "Tuesday",
+//     "Wednesday",
+//     "Thursday",
+//     "Friday",
+//     "Saturday"
+//   ];
+//   let day = days[new Date().getDay()];
+//   let hours = new Date().getHours();
+//   let minutes = new Date().getMinutes();
+//   if (minutes < 10) {
+//     minutes = "0" + minutes;
+//     }
+//   let ampm = (hours >= 12) ? "PM" : "AM";
 
-  let today = `${day}, ${hours}:${minutes} ${ampm}`;
-  return today;
-}
+//   let today = `${day}, ${hours}:${minutes} ${ampm}`;
+//   return today;
+// }
 
-let currentTime = document.getElementById("current-time");
-currentTime.innerHTML = formatDate();
+// let currentTime = document.getElementById("current-time");
+// currentTime.innerHTML = formatDate();
 
 // Search city- show city
 
@@ -39,7 +39,8 @@ function enterCity(event) {
   getAPI.then(windSpeed);
   getAPI.then(precipitation);
   getAPI.then(getTime);
-  getAPI.then(getLatLon)
+  getAPI.then(getLatLon);
+  getAPI.then(showWeatherImage);
 }
 
 let search = document.querySelector("#search-form");
@@ -97,6 +98,35 @@ function getTime(response) {
 }
 
 
+function showWeatherImage(response) {
+  
+  const idToWeatherImage = {
+     '01d': 'src/media/undraw_nature_fun_n9lv.svg',
+     '01n': 'src/media/moonlight_5ksn.svg',
+     '02d': 'src/media/undraw_Weather_app_re_kcb1.svg',
+     '02n': 'src/media/Dream_Monochromatic.svg',
+     '03d': 'src/media/undraw_i_can_fly_7egl.svg',
+     '03n': 'src/media/undraw_i_can_fly_7egl.svg',
+     '04d': 'src/media/undraw_i_can_fly_7egl.svg',
+     '04n': 'src/media/undraw_i_can_fly_7egl.svg',
+     '09d': 'src/media/raingrey.svg',
+     '09n': 'src/media/Rain_Monochromatic.svg',
+     '10d': 'src/media/undraw_after_the_rain_58op.svg',
+     '10n': 'src/media/undraw_after_the_rain_58op.svg',
+     '11d': 'src/media/before_dawn_bqrj day.svg',
+     '11n': 'src/media/before_dawn_bqrj night.svg',
+     '13d': 'src/media/snow_games_ohkc.svg',
+     '13n': 'src/media/undraw_decorative_friends_q2np.svg',
+     '50d': 'src/media/undraw_social_distancing_2g0u.svg',
+     '50n': 'src/media/undraw_social_distancing_2g0u.svg',
+  }
+  let currentIcon = response.data.weather[0].icon;
+  let imageSource = idToWeatherImage[currentIcon] || 'src/media/undraw_thought_process_67my.svg'
+  
+  let weatherImage = document.getElementById("currentWeatherImage");
+  weatherImage.setAttribute("src", `${imageSource}`);
+}
+
 // Get Lat and Longitude for Forecast API
 function getLatLon(response) {
     let lat = response.data.coord.lat;
@@ -104,7 +134,7 @@ function getLatLon(response) {
     let apiKey = "d501295ae4ed80273e766f727b7cd606";
     let apiForecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}&&units=metric`;
     let getForecastAPI = axios.get(apiForecastUrl);
-    getForecastAPI.then(showForecast);
+  getForecastAPI.then(showForecast);
 }
 
 //Function to display forecast for next 5 days, renders forecast using API and for loop
@@ -114,19 +144,48 @@ function getLatLon(response) {
     forecastElement.innerHTML = null;
     let forecast = null;
 
+    // Replace icon ID with new icons
+   const idToClassMap = {
+     '01d': 'fas fa-sun',
+     '01n': 'fas fa-moon',
+     '02d': 'fas fa-cloud-sun',
+     '02n': 'fas fa-cloud-moon',
+     '03d': 'fas fa-cloud',
+     '03n': 'fas fa-cloud',
+     '04d': 'fas fa-cloud',
+     '04n': 'fas fa-cloud',
+     '09d': 'fas fa-cloud-showers-heavy',
+     '09n': 'fas fa-cloud-showers-heavy',
+     '10d': 'fas fa-cloud-sun-rain',
+     '10n': 'fas fa-cloud-moon-rain',
+     '11d': 'fas fa-bolt',
+     '11n': 'fas fa-bolt',
+     '13d': 'fas fa-snowflake',
+     '13n': 'fas fa-snowflake',
+     '50d': 'fas fa-smog',
+     '50n': 'fas fa-smog',
+    }
+   
     for (let index = 1; index < 6; index++) {
       forecast = response.data.daily[index];
-
+      
+      // format weekday from Unix timestamp
       let timez = forecast.dt * 1000;
       let timeNow = Date.now();
       let dateObjecttoday = new Date(timeNow + timez);
       let weekdayFormat = dateObjecttoday.toLocaleString("en-US", { weekday: "short", timeZone: `UTC` });
+      
+       // format icons
+      let iconId = forecast.weather[0].icon;
+      let iconClass = idToClassMap[iconId] || 'fas fa-ghost'
+      
+      // Render HTML for 5 day forecast
       forecastElement.innerHTML += `
 
         <div class="card forecast">
           <div class="card-body">
             <h5 class="card-title">${weekdayFormat}</h5>
-            <i class="fas fa-cloud-sun-rain"></i>
+            <i class="${iconClass}"></i>
             <p class="card-text"><span class="temp">${Math.round(forecast.temp.max)}° </span>/<span class="temp"> ${Math.round(forecast.temp.min)}°</span>
             </p>
           </div>
@@ -134,8 +193,8 @@ function getLatLon(response) {
         `;
     }
   }
-
   
+
 // Bonus challenge - change temp based on slection of units
 
 let fahrenheit = document.getElementById("fahrenheit-link");

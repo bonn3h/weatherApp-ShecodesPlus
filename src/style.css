@@ -109,7 +109,8 @@ a.active {
 }
 
 .mainImage {
-  padding-bottom: 20px;
+  padding: 20px;
+  margin: 20px;
   min-height: 200px;
   max-height: 250px;
   display: flex;
