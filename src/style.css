@@ -113,7 +113,7 @@ a.active {
   padding: 20px;
   margin: 20px;
   min-height: 200px;
-  max-height: 250px;
+  max-height: 200px;
   display: flex;
   justify-content: center;
   align-content: center;

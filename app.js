@@ -1,71 +1,126 @@
-//function to get local location data form user
-function getCurrentLocation(position) {
+
+function success(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
-  // let apiKey = "d501295ae4ed80273e766f727b7cd606";
-  // let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&&units=metric`;
-  // axios.get(`${apiUrl}`).then(showTemperature);
-  
+  getCityName(lat, lon);
 }
 
-//
+function error(err) {
+  alert(`ERROR(${err.code}): ${err.message}`);
+}
+
+function getCityName(lat, lon) {
+  let apiKey = "d501295ae4ed80273e766f727b7cd606";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&&units=metric`;
+  let getAPI = axios.get(apiUrl);
+  getAPI.then(showCity);
+  getAPI.then(getLatLon);
+}
+
+// When a city is searched, function retrieves latitude and longitutde coordinates for the city
 function enterCity(event) {
   event.preventDefault();
   let citySearched = document.getElementById("city-searched").value;
   let apiKey = "d501295ae4ed80273e766f727b7cd606";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearched}&appid=${apiKey}&&units=metric`;
   let getAPI = axios.get(apiUrl);
-  getAPI.then(showTemperature);
-  getAPI.then(showCity); //stay
-  getAPI.then(showHighLowTemp);
-  getAPI.then(weatherDescription)
-  getAPI.then(windSpeed);
-  getAPI.then(precipitation);
-  getAPI.then(getTime);
   getAPI.then(getLatLon);
-  getAPI.then(showWeatherImage);
+  getAPI.then(showCity);
 }
 
 let search = document.querySelector("#search-form");
-search.addEventListener("submit", enterCity)
+search.addEventListener("submit", enterCity);
 
-// Change current temperature main
-function showTemperature(response) {
-  let temp = document.querySelector("h1");
-  temp.innerHTML = `${Math.round(response.data.main.temp)}°`;
-}
-// Show Current city and country
+let searchButton = document.getElementById("search-button");
+searchButton.addEventListener("click", enterCity);
+
+// Show Current city and country - City search API
 function showCity(response) {
   let displayCity = document.getElementById("display-city");
   displayCity.innerHTML = `${(response.data.name)}, ${(response.data.sys.country)}`;
 }
+
+// Function is called form enterCity() to get values for Latitude and Longitude for city searches
+function getLatLon(response) {
+  let lat = response.data.coord.lat;
+  let lon = response.data.coord.lon;
+  showWeatherData(lat, lon);
+}
+
+//Retrives all weather data
+function showWeatherData(lat, lon) {
+  let apiKey = "d501295ae4ed80273e766f727b7cd606";
+  let apiForecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}&&units=metric`;
+  let getForecastAPI = axios.get(apiForecastUrl);
+  getForecastAPI.then(showTemperature);
+  getForecastAPI.then(showHighLowTemp);
+  getForecastAPI.then(weatherDescription)
+  getForecastAPI.then(windSpeed);
+  getForecastAPI.then(precipitation);
+  getForecastAPI.then(getTime);
+  getForecastAPI.then(showWeatherImage);
+  getForecastAPI.then(showForecast); //coded to 2nd api
+}
+
+// Change current temperature main
+function showTemperature(response) {
+  let temp = document.querySelector("h1");
+  temp.innerHTML = `${Math.round(response.data.current.temp)}°`;
+}
+
 // Show Current day high and low temperatures
 function showHighLowTemp(response) {
   let highTemp = document.getElementById("current-day-high");
   let lowTemp = document.getElementById("current-day-low");
-  highTemp.innerHTML = `${Math.round(response.data.main.temp_max)}°`;
-  lowTemp.innerHTML =`${Math.round(response.data.main.temp_min)}°`;
+  highTemp.innerHTML = `${Math.round(response.data.daily[0].temp.max)}°`;
+  lowTemp.innerHTML =`${Math.round(response.data.daily[0].temp.min)}°`;
 }
-// Change current weather description
+// Change current weather description and Icon
 function weatherDescription(response) {
   let weatherCondition = document.getElementById("weather-description");
-  weatherCondition.innerHTML = `${(response.data.weather[0].description)}`;
-   
+  weatherCondition.innerHTML = `${(response.data.current.weather[0].description)}`;
+
+  // Use icon ID from API to assign new icons
+  const idToIcon = {
+    '01d': 'fas fa-sun',
+    '01n': 'fas fa-moon',
+    '02d': 'fas fa-cloud-sun',
+    '02n': 'fas fa-cloud-moon',
+    '03d': 'fas fa-cloud',
+    '03n': 'fas fa-cloud',
+    '04d': 'fas fa-cloud',
+    '04n': 'fas fa-cloud',
+    '09d': 'fas fa-cloud-showers-heavy',
+    '09n': 'fas fa-cloud-showers-heavy',
+    '10d': 'fas fa-cloud-sun-rain',
+    '10n': 'fas fa-cloud-moon-rain',
+    '11d': 'fas fa-bolt',
+    '11n': 'fas fa-bolt',
+    '13d': 'fas fa-snowflake',
+    '13n': 'fas fa-snowflake',
+    '50d': 'fas fa-smog',
+    '50n': 'fas fa-smog',
+  }
+  
+  let iconId = response.data.current.weather[0].icon;
+  let currentIconClass = idToIcon[iconId] || 'fas fa-ghost'
+  document.getElementById("current-weather-icon").className = `${currentIconClass}`;
 }
+
 // Change current wind speed
 function windSpeed(response) {
   let wind = document.getElementById("wind-speed");
-  wind.innerHTML = `${(response.data.wind.speed)} M/S`;
+  wind.innerHTML = `${(response.data.current.wind_speed)} M/S`;
 }
 // Change current precipitation
 function precipitation(response) {
   let precip = document.getElementById("precipitation");
-  precip.innerHTML = `${(response.data.main.humidity)}`;
+  precip.innerHTML = `${(response.data.current.humidity)}`;
 }
 
 // Get time for city searched and display correctly
 function getTime(response) {
-  let timezone = response.data.timezone * 1000;
+  let timezone = response.data.timezone_offset * 1000;
   let time = Date.now();
   let dateObject = new Date(time + timezone);
   let weekday = dateObject.toLocaleString("en-US", { weekday: "long", timeZone: `UTC` }) // Monday
@@ -79,7 +134,7 @@ function getTime(response) {
   timeDisplayed.innerHTML = `${weekday}, ${hours}:${minutes} ${ampm}`;
 }
 
-
+// Changes the main weather image icon depending on current weather iconID in API
 function showWeatherImage(response) {
   
   const idToWeatherImage = {
@@ -102,21 +157,11 @@ function showWeatherImage(response) {
      '50d': 'src/media/undraw_social_distancing_2g0u.svg',
      '50n': 'src/media/undraw_social_distancing_2g0u.svg',
   }
-  let currentIcon = response.data.weather[0].icon;
-  let imageSource = idToWeatherImage[currentIcon] || 'src/media/undraw_thought_process_67my.svg'
+  let currentIcon = response.data.current.weather[0].icon;
+  let imageSource = idToWeatherImage[currentIcon] || 'src/media/undraw_thought_process_67my.svg';
   
   let weatherImage = document.getElementById("currentWeatherImage");
   weatherImage.setAttribute("src", `${imageSource}`);
-}
-
-// Get Lat and Longitude for Forecast API
-function getLatLon(response) {
-    let lat = response.data.coord.lat;
-    let lon = response.data.coord.lon;
-    let apiKey = "d501295ae4ed80273e766f727b7cd606";
-    let apiForecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${apiKey}&&units=metric`;
-    let getForecastAPI = axios.get(apiForecastUrl);
-  getForecastAPI.then(showForecast);
 }
 
 //Function to display forecast for next 5 days, renders forecast using API and for loop
@@ -176,7 +221,6 @@ function getLatLon(response) {
     }
   }
   
-
 // Change temp based on slection of units
 
 let fahrenheit = document.getElementById("fahrenheit-link");
@@ -216,3 +260,4 @@ function changeToFahrenheit(event) {
   }
 }
 
+  navigator.geolocation.getCurrentPosition(success, error);
