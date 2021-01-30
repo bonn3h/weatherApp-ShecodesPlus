@@ -1,5 +1,3 @@
-getCurrentLocation();
-
 let locationButton = document.getElementById("location-button");
 locationButton.addEventListener('click', getCurrentLocation)
 
@@ -214,9 +212,19 @@ function showWeatherImage(response) {
         </div>
         `;
     }
-   
-  }
+   removeHide();
+ }
   
+//  Removes hide class from all elements
+function removeHide() {
+  document.querySelector('.pageLoad').classList.remove('pageLoad');
+  
+  var sections = document.querySelectorAll('.hide');
+  for (i = 0; i < sections.length; i++) {
+    sections[i].classList.remove('hide');
+  }
+}
+
 // Change temp based on slection of units
 
 let fahrenheit = document.getElementById("fahrenheit-link");
@@ -274,3 +282,5 @@ function changeToFahrenheit(event) {
   }
   navigator.geolocation.getCurrentPosition(success, error, options);
 } 
+
+getCurrentLocation();

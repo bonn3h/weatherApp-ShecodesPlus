@@ -37,15 +37,15 @@
 
     <!--Current City, County, Day and Time-->
 
-    <div class="row justify-content-center current-city">
+    <div class="row justify-content-center current-city hide">
       <p id="display-city"><strong>CITY,</strong> COUNTRY</p>
     </div>
-    <div class="row current-day-time justify-content-center">
+    <div class="row current-day-time justify-content-center hide">
       <p id="current-time">Sunday, 12:15 PM</p>
     </div>
 
     <!--Current Temperature, High and Low Temp-->
-    <div class="row weather-today justify-content-center">
+    <div class="row weather-today justify-content-center hide">
       <div class="card w-40 temperature-today">
         <div class="card-body">
           <h1 class="card-title temp">25°</h1>
@@ -73,15 +73,13 @@
     </div>
 
     <!--Weather Image-->
-    <div class="mainImage">
+    <div class="mainImage pageLoad">
       <img id="currentWeatherImage" src="src/media/undraw_thought_process_67my.svg" alt="weatherImgae">
     </div>
 
     <!-- Future Forecast-->
-    <div class="row weather-forecast">
-
-
-      <div class="card forecast">
+    <div class="row weather-forecast hide">
+      <div class="card forecast hide">
         <div class="card-body">
           <h5 class="card-title">Mon</h5>
           <i class="fas fa-cloud-sun-rain"></i>
@@ -91,7 +89,8 @@
       </div>
     </div>
 
-    <p class="footnote"><a href="https://github.com/bonn3h/weatherApp-ShecodesPlus">Open source code</a>, by Bonnie
+    <p class="footnote footer"><a href="https://github.com/bonn3h/weatherApp-ShecodesPlus">Open source code</a>, by
+      Bonnie
       Murthy</p>
   </div>
 </body>

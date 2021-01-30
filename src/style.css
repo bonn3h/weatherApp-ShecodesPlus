@@ -1,11 +1,16 @@
 .container {
   max-width: 375px;
+  min-height: 660px;
   background-size: contain;
   background-repeat: no-repeat;
   background-color: rgba(232, 236, 241, 0.5);
   /* background-color: rgba(231, 231, 222, 0.5); */
   border-radius: 10px;
   font-family: "Source Sans Pro", sans-serif;
+}
+
+.hide {
+  display: none;
 }
 
 .card {
@@ -40,15 +45,19 @@
   padding-bottom: 10px;
   padding-right: 5px;
   padding-left: 5px;
-}
-
-.fa-search .fa-location-arrow {
   color: #6c757d;
 }
 
 .form-control {
   background-color: transparent;
   border-color: #6c757d;
+  color: #6c757d;
+}
+
+.form-control:focus {
+  border-color: #6c757d;
+  box-shadow: none;
+  color: #6c757d;
 }
 
 ::placeholder {
@@ -112,6 +121,19 @@ a.active {
   align-content: center;
   flex-direction: column;
 }
+
+.pageLoad {
+  padding-top: 200px;
+  padding-bottom: 200px;
+  margin: 20px;
+  min-height: 200px;
+  max-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
 .forecast {
   max-width: 100px;
   padding-bottom: 20px;
