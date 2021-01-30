@@ -1,14 +1,9 @@
+getCurrentLocation();
 
-function success(position) {
-  let lat = position.coords.latitude;
-  let lon = position.coords.longitude;
-  getCityName(lat, lon);
-}
+let locationButton = document.getElementById("location-button");
+locationButton.addEventListener('click', getCurrentLocation)
 
-function error(err) {
-  alert(`ERROR(${err.code}): ${err.message}`);
-}
-
+// Retrieves city name once Latitude and Longitude are obtained from geolocation data
 function getCityName(lat, lon) {
   let apiKey = "d501295ae4ed80273e766f727b7cd606";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&&units=metric`;
@@ -219,6 +214,7 @@ function showWeatherImage(response) {
         </div>
         `;
     }
+   
   }
   
 // Change temp based on slection of units
@@ -260,4 +256,21 @@ function changeToFahrenheit(event) {
   }
 }
 
-  navigator.geolocation.getCurrentPosition(success, error);
+ function getCurrentLocation() {
+  var options = {
+    enableHighAccuracy: false,
+    timeout: 10000,
+    maximumAge: Infinity,
+  }
+
+  function success(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    getCityName(lat, lon);
+  }
+
+  function error(err) {
+    alert(`ERROR(${err.code}): ${err.message}`);
+  }
+  navigator.geolocation.getCurrentPosition(success, error, options);
+} 

@@ -23,19 +23,20 @@
   <div class="container">
     <!-- Search Bar with form for city name, search icon and current location icon-->
     <div class="row search-city">
-      <div class="col-10 search-box">
+      <div class="search-box">
         <form id="search-form">
-          <input type="text" class="form-control" placeholder="Search you city" id="city-searched" autofill="Off">
+          <input type="text" class="form-control" placeholder="Search your city" id="city-searched" autofill="Off">
         </form>
       </div>
       <div class="search-buttons">
-        <button class="btn searchIcon col-1" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-        <button class="btn currentLocation col-1" type="submit" id="location-button"><i
+        <button class="btn searchIcon" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+        <button class="btn currentLocation" type="submit" id="location-button"><i
             class="fas fa-location-arrow"></i></button>
       </div>
     </div>
 
     <!--Current City, County, Day and Time-->
+
     <div class="row justify-content-center current-city">
       <p id="display-city"><strong>CITY,</strong> COUNTRY</p>
     </div>
@@ -63,7 +64,8 @@
       <!--Weather conditions, Wind, Precipiattion or Chance of rain-->
       <div class="card w-40 weather-conditions">
         <div class="card-body">
-          <p><i class="fas fa-cloud-sun" id="current-weather-icon"></i> <span id="weather-description"> Weather</span></p>
+          <p><i class="fas fa-cloud-sun" id="current-weather-icon"></i> <span id="weather-description"> Weather</span>
+          </p>
           <p><i class="fas fa-wind"></i> <span id="wind-speed"> 00 m/s</span></p>
           <p><i class="fas fa-umbrella"></i> <span id="precipitation"> 00 </span>%</p>
         </div>
@@ -92,7 +94,6 @@
     <p class="footnote"><a href="https://github.com/bonn3h/weatherApp-ShecodesPlus">Open source code</a>, by Bonnie
       Murthy</p>
   </div>
-
 </body>
 
 </html>
