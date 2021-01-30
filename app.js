@@ -218,6 +218,7 @@ function showWeatherImage(response) {
 //  Removes hide class from all elements
 function removeHide() {
   document.querySelector('.pageLoad').classList.remove('pageLoad');
+  document.getElementById("loadingText").remove();
   
   var sections = document.querySelectorAll('.hide');
   for (i = 0; i < sections.length; i++) {
